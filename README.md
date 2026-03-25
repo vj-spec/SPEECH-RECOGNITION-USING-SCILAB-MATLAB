@@ -8,7 +8,7 @@ To perform and verify speech recognition using SCILAB.
 PC installed with SCILAB. 
 
 ## PROGRAM : 
-
+```
 # ================================
 # INSTALL REQUIREMENTS
 # ================================
@@ -59,7 +59,7 @@ except sr.UnknownValueError:
 
 except sr.RequestError:
     print("\n❌ API error (Check internet)")
-
+```
 ## OUTPUT:
 
 <img width="1599" height="690" alt="image" src="https://github.com/user-attachments/assets/ceaf3ba1-5301-44cc-ad0c-0ae2279fae8a" />
