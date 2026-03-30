@@ -1,68 +1,60 @@
-# EXP 5 : SPEECH RECOGNITION USING SCILAB
+## EXP 5  SPEECH RECOGNITION USING SCILAB
 
-## AIM: 
+### AIM: 
 
 To perform and verify speech recognition using SCILAB. 
 
-## APPARATUS REQUIRED: 
-PC installed with SCILAB. 
+### APPARATUS REQUIRED: 
+PC installed with SCILAB and Python IDE. 
 
 ## PROGRAM : 
-```
-# ================================
-# INSTALL REQUIREMENTS
-# ================================
-!pip -q install SpeechRecognition pydub
-!apt-get -qq install ffmpeg
-
-# ================================
-# IMPORT LIBRARIES
-# ================================
+PYTHON CODE
+```Python
 import speech_recognition as sr
-from google.colab import files
-from pydub import AudioSegment
+r = sr.Recognizer()
 
-# ================================
-# UPLOAD AUDIO FILE
-# ================================
-print("📁 Upload audio file (MP3 or WAV)")
-uploaded = files.upload()
-
-audio_file = list(uploaded.keys())[0]
-
-# ================================
-# CONVERT TO WAV (IF MP3)
-# ================================
-if audio_file.endswith(".mp3"):
-    print("🔄 Converting MP3 to WAV...")
-    sound = AudioSegment.from_mp3(audio_file)
-    audio_file = "converted.wav"
-    sound.export(audio_file, format="wav")
-
-# ================================
-# SPEECH TO TEXT
-# ================================
-recognizer = sr.Recognizer()
-
-with sr.AudioFile(audio_file) as source:
-    audio_data = recognizer.record(source)
-
-# ================================
-# CONVERT AUDIO TO TEXT
-# ================================
 try:
-    text = recognizer.recognize_google(audio_data)
-    print("\n🎯 Converted Text:\n", text)
+    with sr.AudioFile("harvard.wav") as source:
+        audio = r.record(source)
 
-except sr.UnknownValueError:
-    print("\n❌ Could not understand audio")
+    text = r.recognize_google(audio)
+    print("Recognized:", text)
 
-except sr.RequestError:
-    print("\n❌ API error (Check internet)")
+except Exception as e:
+    print("Error:", e)
+    text = "ERROR"
+
+# Always create output file
+with open("output.txt", "w") as f:
+    f.write(text)
 ```
-## OUTPUT:
+SCILAB CODE
+```python
+clc;
+clear;
+close;
 
-<img width="1599" height="690" alt="image" src="https://github.com/user-attachments/assets/ceaf3ba1-5301-44cc-ad0c-0ae2279fae8a" />
+cd("D:\SEMESTER 4\TERM 1\DTSP\SPEECH RECOGNITION\");
+
+disp("Calling Python Speech Recognition...");
+
+host("python speech_to_text.py");
+
+// wait for python to finish
+sleep(5000);
+
+text = mgetl("output.txt");
+
+disp("Recognized Speech:");
+disp(text);
+
+```
+### AUDIO 
+[harvard.wav](https://github.com/user-attachments/files/26216204/harvard.wav)
+
+## OUTPUT: 
+<img width="734" height="172" alt="image" src="https://github.com/user-attachments/assets/fcac0d79-a48a-400e-9b7e-ddbff745e6b1" />
+
 
 ## RESULT: 
-Thus the speech recognition using SCILAB was performed and verified.
+Thus the speech recognition using SCILAB and Python IDE was performed and verified.
